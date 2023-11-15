@@ -20,6 +20,8 @@ tps_lists = []
 file_is_offline = [] # index i is True if the file i is offline data, matching tps_lists[i]
 for tpFile_path in  args.files:
     
+    print ("Reading file: " + tpFile_path)
+    
     this_tps_list = saveTPs(tpFile_path, args.number_tps)
     # order them basing on start_time
     this_tps_list.sort(key=lambda x: x.time_start)
@@ -34,31 +36,36 @@ for tpFile_path in  args.files:
 plotTimePeak(tps_lists, args.files, 
              superimpose=args.superimpose, 
              quantile=1, 
-             y_min=None, y_max=None) 
+             y_min=None, y_max=None,
+             show=False) 
 
 plotTimeOverThreshold(tps_lists, args.files,
                         superimpose=args.superimpose,
                         quantile=1,
-                        y_min=None, y_max=None)
+                        y_min=None, y_max=None,
+                        show=False)
 
 plotADCIntegral(tps_lists, args.files,
                 superimpose=args.superimpose,
                 quantile=1,
-                y_min=None, y_max=None)
+                y_min=None, y_max=None,
+                show=False)
 
 plotADCPeak(tps_lists, args.files,
             superimpose=args.superimpose,
             quantile=1,
-            y_min=None, y_max=None)
+            y_min=None, y_max=None,
+            show=False)
 
 plotChannel(tps_lists, args.files,
             superimpose=args.superimpose,
             x_min=None, x_max=None,
-            y_min=None, y_max=None)
+            y_min=None, y_max=None,
+            show=False)
+            
 
 plotDetId(tps_lists, args.files,
             superimpose=args.superimpose,
             quantile=1,
-            y_min=None, y_max=None)
-        
-plt.show()
+            y_min=None, y_max=None,
+            show=False)

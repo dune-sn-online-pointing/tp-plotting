@@ -79,9 +79,11 @@ def saveTPs (filename, max_tps):
 alpha = 0.4 # transparency of the histograms, lower is more opaque
 grid_in_superimpose = False
 grid_in_not_superimpose = False
+output_folder = "output/" # TODO improve this, accept as argument
+image_format='.png'
 
 
-def plotTimePeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None):
+def plotTimePeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -95,7 +97,10 @@ def plotTimePeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, 
 
     for i, tps_file in enumerate(tps_lists):
         time_peak = [tp.time_peak - tp.time_start for tp in tps_file]
-        label = f"Time Peak, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+
+        
+        label = f"Time Peak, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -111,20 +116,24 @@ def plotTimePeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, 
         fig.hist(time_peak, bins=np.arange(-0.5, x_max + 0.5), label=label, alpha=alpha, edgecolor='black')
 
         if not superimpose:
-            fig.set_title(f"Time Peak, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"Time Peak, file {this_filename}", fontweight='bold')
+            if show:
+                plt.show()
+            plt.savefig(f"./{output_folder}{this_filename}_timePeak{image_format}")
 
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        if show:
+            plt.show()
+        plt.savefig(f"./{output_folder}timePeak{image_format}")
         
     del time_peak # free memory
 
     return
 
 
-def  plotTimeOverThreshold(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None):
+def  plotTimeOverThreshold(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -138,7 +147,9 @@ def  plotTimeOverThreshold(tps_lists, file_names, superimpose=False, quantile=1,
 
     for i, tps_file in enumerate(tps_lists):
         time_over_threshold = [tp.time_over_threshold for tp in tps_file]
-        label = f"Time over Threshold, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+     
+        label = f"Time over Threshold, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -154,13 +165,17 @@ def  plotTimeOverThreshold(tps_lists, file_names, superimpose=False, quantile=1,
         fig.hist(time_over_threshold, bins=np.arange(-0.5, x_max + 0.5), label=label, alpha=alpha, edgecolor='black')
 
         if not superimpose:
-            fig.set_title(f"Time over Threshold, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"Time over Threshold, file {this_filename}", fontweight='bold')
+            if show:
+                plt.show()
+            plt.savefig(f"./{output_folder}{this_filename}_timeOverThreshold{image_format}")
 
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        if show:
+            plt.show()
+        plt.savefig(f"./{output_folder}timeOverThreshold{image_format}")
         
     # free memory
     del time_over_threshold
@@ -168,7 +183,7 @@ def  plotTimeOverThreshold(tps_lists, file_names, superimpose=False, quantile=1,
     return
 
 
-def plotChannel(tps_lists, file_names, superimpose=False, x_min=0, x_max=None, y_min=0, y_max=None):
+def plotChannel(tps_lists, file_names, superimpose=False, x_min=0, x_max=None, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -178,7 +193,9 @@ def plotChannel(tps_lists, file_names, superimpose=False, x_min=0, x_max=None, y
 
     for i, tps_file in enumerate(tps_lists):
         channel = [tp.channel for tp in tps_file]
-        label = f"Channel, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+     
+        label = f"Channel, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -200,13 +217,17 @@ def plotChannel(tps_lists, file_names, superimpose=False, x_min=0, x_max=None, y
         fig.hist(channel, bins=100, label=label, alpha=alpha)
         
         if not superimpose:
-            fig.set_title(f"Channel, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"Channel, file {this_filename}", fontweight='bold')
+            if show:
+                plt.show()
+            plt.savefig(f"./{output_folder}{this_filename}_channel{image_format}")
             
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        if show:
+            plt.show()
+        plt.savefig(f"./{output_folder}channel{image_format}")
     
     del channel_all_files # free memory
     del channel # free memory
@@ -214,7 +235,7 @@ def plotChannel(tps_lists, file_names, superimpose=False, x_min=0, x_max=None, y
     return            
 
 # look at above and create plotADCIntegral
-def plotADCIntegral(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None):
+def plotADCIntegral(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -229,7 +250,9 @@ def plotADCIntegral(tps_lists, file_names, superimpose=False, quantile=1, y_min=
 
     for i, tps_file in enumerate(tps_lists):
         adc_integral = [tp.adc_integral for tp in tps_file]
-        label = f"ADC Integral, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+     
+        label = f"ADC Integral, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -243,16 +266,20 @@ def plotADCIntegral(tps_lists, file_names, superimpose=False, quantile=1, y_min=
  
         # bin size is optimized to have a number of bins depending on x_max, thus based on the quantile
         # np.arange(-0.5, x_max + 0.5, (x_max+1)/300)
-        fig.hist(adc_integral, bins=50, range=(-0.5,x_max+0.5), label=label, alpha=alpha, edgecolor='black')
+        fig.hist(adc_integral, bins=30, range=(-0.5,x_max+0.5), label=label, alpha=alpha, edgecolor='black')
         
         if not superimpose:
-            fig.set_title(f"ADC Integral, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"ADC Integral, file {this_filename}", fontweight='bold')
+            if show:
+                plt.show()
+            plt.savefig(f"./{output_folder}{this_filename}_adcIntegral{image_format}")
             
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        if show:
+            plt.show()
+        plt.savefig(f"./{output_folder}adcIntegral{image_format}")
         
     
     del adc_integral # free memory
@@ -260,7 +287,7 @@ def plotADCIntegral(tps_lists, file_names, superimpose=False, quantile=1, y_min=
     return
 
 # look at previous functions and write plotADCPeak
-def plotADCPeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None):
+def plotADCPeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -274,7 +301,9 @@ def plotADCPeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y
 
     for i, tps_file in enumerate(tps_lists):
         adc_peak = [tp.adc_peak for tp in tps_file]
-        label = f"ADC Peak, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+     
+        label = f"ADC Peak, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -287,21 +316,25 @@ def plotADCPeak(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y
             fig.set_ylim(top=y_max)
  
         # bin size is optimized to have a number of bins depending on x_max, thus based on the quantile
-        fig.hist(adc_peak, bins=50, range=(-0.5, x_max + 0.5), label=label, alpha=alpha, edgecolor='black')
+        fig.hist(adc_peak, bins=30, range=(-0.5, x_max + 0.5), label=label, alpha=alpha, edgecolor='black')
         
         if not superimpose:
-            fig.set_title(f"ADC Peak, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"ADC Peak, file {this_filename}", fontweight='bold')
+            if show:
+                plt.show()
+            plt.savefig(f"./{output_folder}{this_filename}_adcPeak{image_format}")
             
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        if show:
+            plt.show()
+        plt.savefig(f"./{output_folder}adcPeak{image_format}")
         
     return
 
 # look at previous functions and write plotDetId
-def plotDetId(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None):
+def plotDetId(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_max=None, show=False):
     fig = plt.subplot(111)  # for when superimpose is true
     legend_properties = {'weight': 'bold'}
     
@@ -315,7 +348,9 @@ def plotDetId(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_m
 
     for i, tps_file in enumerate(tps_lists):
         detid = [tp.detid for tp in tps_file]
-        label = f"DetId, file {file_names[i].split('/')[-1]}"
+        this_filename = file_names[i].split('/')[-1]
+     
+        label = f"DetId, file {this_filename}"
         
         if not superimpose:
             fig = plt.subplot(111)
@@ -333,13 +368,17 @@ def plotDetId(tps_lists, file_names, superimpose=False, quantile=1, y_min=0, y_m
         fig.hist(detid, bins=np.arange(-0.5, x_max + 0.5), label=label, alpha=alpha, edgecolor='black')
         
         if not superimpose:
-            fig.set_title(f"DetId, file {file_names[i].split('/')[-1]}", fontweight='bold')
-            plt.show()
+            fig.set_title(f"DetId, file {this_filename}", fontweight='bold')
+            plt.savefig(f"./{output_folder}{this_filename}_detid{image_format}")
+            if show:
+                plt.show()
             
     if superimpose:
         fig.legend(prop=legend_properties)
         plt.grid(grid_in_superimpose)
-        plt.show()
+        plt.savefig(f"./{output_folder}detid{image_format}")
+        if show:
+            plt.show()
         
     return
         
