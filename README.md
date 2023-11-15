@@ -7,6 +7,15 @@ It will be moved to `dune-daq`.
 
 You just need matplotlib, numpy and dataclasses.
 
+### Input files
+The idea is that the input files contain the TP variables in this order:
+```
+time_start, time_peak, time_over_threshold, channel, adc_integral, adc_peak, detid, type, algorithm, version, flags
+```
+If there are more variables after these (MC truth from offline), it's not a problem, they will just be ignored.
+
+The example files in the repo come from offline, but are ok for testing.
+
 ### Usage
 
 The notebook should be self-explanatory, and can be good for quick checks.
