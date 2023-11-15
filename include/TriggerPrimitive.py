@@ -1,9 +1,6 @@
 import numpy as np
 from dataclasses import dataclass
 import datetime
-from dataclasses import dataclass
-import datetime
-
 
 #-------------------------------------------
 # Constants
@@ -36,16 +33,7 @@ class TriggerPrimitive:
                  type=0,
                  algorithm=0,
                  version=1,
-                 flags=0,
-                 particle_type=0,
-                 event_number=0,
-                 view=-1,
-                 energy=0,
-                 n_electrons=0,
-                 track_id=0,
-                 true_x=0,
-                 true_y=0,
-                 true_z=0):
+                 flags=0):
         
         # DAQ TP variables
         self.time_start = time_start
@@ -59,14 +47,3 @@ class TriggerPrimitive:
         self.algorithm = algorithm
         self.version = version
         self.flags = flags
-
-        # Offline MC truth variables
-        self.particle_type = particle_type  # create an enum for this; it's the particle type. For now, 1 is Marley, 2 is background
-        self.event_number = event_number  # init, it starts from 1
-        self.view = view  # create an enum for this; 0 is U, 1 is V, 2 is Z
-        self.energy = energy  # in MeV, not printed as of Nov 10th
-        self.n_electrons = n_electrons  # not printed as of Nov 10th
-        self.track_id = track_id  # not printed as of Nov 10th
-        self.true_x = true_x  # not printed as of Nov 10th
-        self.true_y = true_y  # not printed as of Nov 10th
-        self.true_z = true_z  # not printed as of Nov 10th

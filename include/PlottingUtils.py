@@ -8,20 +8,15 @@ def saveTPs (filename, max_tps):
     data = np.genfromtxt(filename, delimiter=' ', max_rows=max_tps)
     data = data.transpose()
     
-    # there could also be a text variable that is set to "DAQ" or "LArSoft
+    # TP variables are 11
     if len(data) == 11:
         daq = True
-        print ("File ", filename, " comes from DAQ")
-    elif len(data) == 20:
-        daq = False
-        print ("File ", filename, " comes from LArSoft")
+        print ("File ", filename, " comes from DAQ, has correct number of variables")
     else:
-        print ("-----------------------------------------------------------------------")
-        print ("ERROR: TPs in this file have a number of variables not matching nor DAQ nor LArSoft:", len(data))
-        print ("-----------------------------------------------------------------------")
-        return
-    
-    # if daq is true, save only the first 10 variables in the TP objects
+        print ("WARNING: TPs in this file have an unexpected number of variables:", len(data))
+        print (" ")
+        # return # could stop, but for now we continue
+
     # appo vectors just for clarity, could be avoided
     time_start = data[0]
     time_over_threshold = data[1]
@@ -40,35 +35,15 @@ def saveTPs (filename, max_tps):
     # time_start -= time_shift
     # time_start *= 16e-9 # convert to seconds, do we want it?
         
-    # if it comes from the daq, directly create the TP list
-    if (daq):
-        # create a list to store the TPs
-        tp_list = []
-        # loop over the number of TPs and append tps to the list
-        for i in range(len(time_start)):
-            tp_list.append(TriggerPrimitive(time_start[i], time_peak[i], time_over_threshold[i], channel[i], adc_integral[i], 
-                                            adc_peak[i], detid[i], type[i], algorithm[i], version[i], flags[i]))
-    else:
-        # appo vectors 
-        particle_type = data[11]
-        event_number = data[12]
-        view = data[13]
-        energy = data[14]
-        n_electrons = data[15]
-        track_id = data[16]
-        true_x = data[17]
-        true_y = data[18]
-        true_z = data[19]
-        # here using the constructor with also the offline variables
-        tp_list = []
-        for i in range(len(time_start)):
-            tp_list.append(TriggerPrimitive(time_start[i], time_peak[i], time_over_threshold[i], channel[i], adc_integral[i], 
-                                            adc_peak[i], detid[i], type[i], algorithm[i], version[i], flags[i], particle_type[i], 
-                                            event_number[i], view[i], energy[i], n_electrons[i], track_id[i], true_x[i], true_y[i], 
-                                            true_z[i]))
-        # delete the appo vectors
-        del time_start, time_over_threshold, time_peak, channel, adc_integral, adc_peak, detid, type, algorithm, version, flags
-        del particle_type, event_number, view, energy, n_electrons, track_id, true_x, true_y, true_z
+    # create a list to store the TPs
+    tp_list = []
+    # loop over the number of TPs and append tps to the list
+    for i in range(len(time_start)):
+        tp_list.append(TriggerPrimitive(time_start[i], time_peak[i], time_over_threshold[i], channel[i], adc_integral[i], 
+                                        adc_peak[i], detid[i], type[i], algorithm[i], version[i], flags[i]))
+    
+    # delete the appo vectors
+    del time_start, time_over_threshold, time_peak, channel, adc_integral, adc_peak, detid, type, algorithm, version, flags
     
     return tp_list
 

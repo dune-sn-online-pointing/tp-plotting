@@ -17,7 +17,6 @@ args = parser.parse_args()
 # the code will deduce if the file is coming from offline or online data
 
 tps_lists = []
-file_is_offline = [] # index i is True if the file i is offline data, matching tps_lists[i]
 for tpFile_path in  args.files:
     
     print ("Reading file: " + tpFile_path)
@@ -26,12 +25,7 @@ for tpFile_path in  args.files:
     # order them basing on start_time
     this_tps_list.sort(key=lambda x: x.time_start)
     tps_lists.append(this_tps_list)
-    
-    # check if the file is offline or online
-    if (this_tps_list[0].event_number == 0):
-        file_is_offline.append(True)
-    else:
-        file_is_offline.append(False)
+
 
 plotTimePeak(tps_lists, args.files, 
              superimpose=args.superimpose, 
