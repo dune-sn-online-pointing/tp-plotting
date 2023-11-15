@@ -9,8 +9,9 @@ You just need matplotlib, numpy and dataclasses.
 
 ### Usage
 
-The notebook should be self-explanatory.
-`plot-tps.py` does the same thing, and the usage can be seen with `-h`. 
+The notebook should be self-explanatory, and can be good for quick checks.
+
+`plot-tps.py` does the same thing; the usage can be seen with `-h`. 
 In short, you can give it a variable number of files with the flag `-f`, the number of tps to load and plot with `-n`.
 You can decide to superimpose them on the same plot with the flag `-s`, default is `False`.
 
