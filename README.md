@@ -8,7 +8,7 @@ It will be moved to `dune-daq`.
 You just need matplotlib, numpy and dataclasses.
 
 ### Input files
-The idea is that the input files contain the TP variables in this order:
+For textfiles, the idea is that the input files contain the TP variables in this order:
 ```
 time_start, time_peak, time_over_threshold, channel, adc_integral, adc_peak, detid, type, algorithm, version, flags
 ```
