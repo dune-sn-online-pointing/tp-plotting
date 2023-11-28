@@ -1,17 +1,17 @@
 echo "plane 0"
-python study.py --ticks_limit 10 --channel_limit 3 --plane 0
-python study.py --ticks_limit 25 --channel_limit 5 --plane 0
-python study.py --ticks_limit 50 --channel_limit 10 --plane 0
-python study.py --ticks_limit 100 --channel_limit 20 --plane 0
+python study.py --plane 0 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/U/groups_tick_limits_100_channel_limits_20_min_tps_to_group_1.root"
+python study.py --plane 0 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/U/groups_tick_limits_50_channel_limits_10_min_tps_to_group_1.root"
+python study.py --plane 0 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/U/groups_tick_limits_25_channel_limits_5_min_tps_to_group_1.root"
+python study.py --plane 0 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/U/groups_tick_limits_10_channel_limits_3_min_tps_to_group_1.root"
 
 echo "plane 1"
-python study.py --ticks_limit 10 --channel_limit 3 --plane 1
-python study.py --ticks_limit 25 --channel_limit 5 --plane 1
-python study.py --ticks_limit 50 --channel_limit 10 --plane 1
-python study.py --ticks_limit 100 --channel_limit 20 --plane 1
+python study.py --plane 1 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/groups_tick_limits_100_channel_limits_20_min_tps_to_group_1.root"
+python study.py --plane 1 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/groups_tick_limits_50_channel_limits_10_min_tps_to_group_1.root"
+python study.py --plane 1 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/groups_tick_limits_25_channel_limits_5_min_tps_to_group_1.root"
+python study.py --plane 1 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/V/groups_tick_limits_10_channel_limits_3_min_tps_to_group_1.root"
 
 echo "plane 2"
-python study.py --ticks_limit 10 --channel_limit 3 --plane 2
-python study.py --ticks_limit 25 --channel_limit 5 --plane 2
-python study.py --ticks_limit 50 --channel_limit 10 --plane 2
-python study.py --ticks_limit 100 --channel_limit 20 --plane 2
+python study.py --plane 2 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/groups_tick_limits_100_channel_limits_20_min_tps_to_group_1.root"
+python study.py --plane 2 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/groups_tick_limits_50_channel_limits_10_min_tps_to_group_1.root"
+python study.py --plane 2 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/groups_tick_limits_25_channel_limits_5_min_tps_to_group_1.root"
+python study.py --plane 2 --output_folder "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/" --input_file "/afs/cern.ch/work/d/dapullia/public/dune/dataset_study/X/groups_tick_limits_10_channel_limits_3_min_tps_to_group_1.root"

@@ -73,7 +73,7 @@ def save_groups(groups, name, save_txt=False, save_npy=False, out_dir_groups='da
 
 
 
-def hist_n_tps(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_n_tps(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     lens =[len(group) for group in groups]
     lens_supernova = [len(group) for group in groups if group.contains_supernova]
     lens_clean_supernova = [len(group) for group in groups if group.contains_supernova and group.is_clean]
@@ -94,17 +94,17 @@ def hist_n_tps(groups, main_neutrino_group_per_event, ticks_limit, channel_limit
 
     plt.xlabel("Number of TPs per group")
     plt.ylabel("Number of groups")
-    plt.title(f"Number of TPs per group (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Number of TPs per group ({outname})")
     # set axis log
     plt.yscale('log')
     plt.xticks(np.arange(0, max_value_with_margin+1,max_value_with_margin//10))
     plt.legend()
-    plt.savefig(out_dir+f"hist_groups_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir+outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
 
 
-def hist_total_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_total_charge(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     total_charge = [group.total_charge for group in groups]
     total_charge_supernova = [group.total_charge for group in groups if group.contains_supernova]
     total_charge_clean_supernova = [group.total_charge for group in groups if group.contains_supernova and group.is_clean]
@@ -121,16 +121,15 @@ def hist_total_charge(groups, main_neutrino_group_per_event, ticks_limit, channe
     plt.hist(total_charge_main_neutrino_group_per_event, bins=50, range=(0, max_charge_value_with_margin), label="Main track per event", color='purple', hatch='xx', alpha=0.1)
     plt.xlabel("Total charge per group")
     plt.ylabel("Number of groups")
-    plt.title(f"Total charge per group (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Total charge per group ({outname})")
     # set axis log
     plt.yscale('log')
     plt.xticks(np.arange(0, max_charge_value_with_margin, max_charge_value_with_margin // 10))
     plt.legend()
-    plt.savefig(out_dir + f"hist_groups_total_charge_tl_{ticks_limit}_cl_{channel_limit}.png", bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-
-def hist_max_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_max_charge(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     max_charge = [np.max(group.tps[:,idx['adc_integral']]) for group in groups]
     max_charge_supernova = [np.max(group.tps[:,idx['adc_integral']]) for group in groups if group.contains_supernova]
     max_charge_clean_supernova = [np.max(group.tps[:,idx['adc_integral']]) for group in groups if group.contains_supernova and group.is_clean]
@@ -147,15 +146,15 @@ def hist_max_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_
     plt.hist(max_charge_main_neutrino_group_per_event, bins=50, range=(0, max_charge_value_with_margin), label="Main track per event", color='purple', hatch='xx', alpha=0.1)
     plt.xlabel("Max charge per group")
     plt.ylabel("Number of groups")
-    plt.title(f"Max charge per group (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Max charge per group ({outname})")
     # set axis log
     plt.yscale('log')
     plt.xticks(np.arange(0, max_charge_value_with_margin, max_charge_value_with_margin // 10))
     plt.legend()
-    plt.savefig(out_dir+f"hist_groups_max_charge_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-def hist_n_tps_main_track(main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_n_tps_main_track(main_neutrino_group_per_event, outname, out_dir='plots/'):
     lens =[len(group) for group in main_neutrino_group_per_event]
     lens_clean_supernova = [len(group) for group in main_neutrino_group_per_event if group.is_clean]
     lens_mostly_supernova = [len(group) for group in main_neutrino_group_per_event if group.supernova_fraction >= 0.5]
@@ -173,14 +172,15 @@ def hist_n_tps_main_track(main_neutrino_group_per_event, ticks_limit, channel_li
     plt.hist(lens_clean_supernova, bins=120, range=(0, max_value_with_margin), label="Clean supernova groups", color='green', align='left')
     plt.xlabel("Number of TPs per group")
     plt.ylabel("Number of groups")
-    plt.title(f"Number of TPs per group (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Number of TPs per group ({outname})")
     # set axis log
     plt.xticks(np.arange(0, max_value_with_margin, max_value_with_margin // 10))
     plt.legend()
-    plt.savefig(out_dir+f"hist_groups_main_track_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir+outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-def hist_total_lenght(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+
+def hist_total_lenght(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     total_lenght = [group.track_total_lenght for group in groups]
     total_lenght_supernova = [group.track_total_lenght for group in groups if group.contains_supernova]
     total_lenght_clean_supernova = [group.track_total_lenght for group in groups if group.contains_supernova and group.is_clean]
@@ -197,12 +197,12 @@ def hist_total_lenght(groups, main_neutrino_group_per_event, ticks_limit, channe
     plt.hist(total_lenght_main_neutrino_group_per_event, bins=50, range=(0, max_length_with_margin), label="Main track per event", color='purple', hatch='xx', alpha=0.1)
     plt.xlabel("Total length per group")
     plt.ylabel("Number of groups")
-    plt.title(f"Total length per group (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Total length per group ({outname})")
     # set axis log
     plt.yscale('log')
     plt.xticks(np.arange(0, max_length_with_margin, max_length_with_margin // 10))
     plt.legend()
-    plt.savefig(out_dir+f"hist_groups_total_length_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
 
@@ -218,25 +218,24 @@ def save_main_tracks_img(main_neutrino_group_per_event, channel_map, out_dir_img
 
 
 
-def hist_n_apas_per_event(n_apas_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_n_apas_per_event(n_apas_per_event, outname, out_dir='plots/'):
     plt.hist(n_apas_per_event, bins=6, range=(0, 6), label="Number of APAs per event", align='left')
     plt.xlabel("Number of APAs per event")
-    plt.xlabel("Number of APAs per event")
     plt.ylabel("Number of events")
-    plt.title(f"Number of APAs per event (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Number of APAs per event ({outname})")
     # set axis log
     plt.xticks(np.arange(0, 6, 1))
     plt.legend()
-    plt.savefig(out_dir+f"hist_n_apas_per_event_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname , bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
 
 
-def hist_n_sn_groups_per_event(n_sn_groups_per_event, ticks_limit, channel_limit, n_tps_sn, n_tps_bkg, out_dir='plots/'):
+def hist_n_sn_groups_per_event(n_sn_groups_per_event, outname, n_tps_sn, n_tps_bkg, out_dir='plots/'):
     plt.hist(n_sn_groups_per_event, bins=40, range=(0,40), label="Number of SN groups per event", align='left')
     plt.xlabel("Number of SN groups per event")
     plt.ylabel("Number of events")
-    plt.title(f"Number of SN groups per event (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Number of SN groups per event ({outname})")
     # create a text box with number of TPs per event
     textstr = f"Total TPs: {n_tps_sn+n_tps_bkg}\nSN TPs: {n_tps_sn}\nBkg TPs: {n_tps_bkg}"
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
@@ -245,10 +244,11 @@ def hist_n_sn_groups_per_event(n_sn_groups_per_event, ticks_limit, channel_limit
     # set axis log
     plt.xticks(np.arange(0, 40, 5))
     plt.legend()
-    plt.savefig(out_dir+f"hist_n_sn_groups_per_event_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-def hist_2D_ntps_total_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+
+def hist_2D_ntps_total_charge(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     total_charge = []
     n_tps = []
     for group in groups:
@@ -262,20 +262,16 @@ def hist_2D_ntps_total_charge(groups, main_neutrino_group_per_event, ticks_limit
     max_n_tps = max(n_tps)
     max_n_tps_with_margin = int(max_n_tps * 1.1)
 
-    plt.hist2d(n_tps, total_charge, bins=(max_n_tps_with_margin, 100), range=((0, max_n_tps_with_margin+1), (0, max_total_charge_with_margin+1)), label="All groups")
+    plt.hist2d(n_tps, total_charge, bins=(max_n_tps_with_margin, 100), range=((0, max_n_tps_with_margin+1), (0, max_total_charge_with_margin+1)), label="All groups",cmin = 1)
     # create a text box with correlation
     textstr = f"Correlation: {corr[0][1]:.3f}"
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    plt.text(0.65, 0.9, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
+    plt.text(0.75, 0.93, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
     
-    plt.xlabel("Number of TPs per group")
-    plt.ylabel("Total charge per group")
-    plt.title(f"nTPs vs total charge (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
-    plt.colorbar()
-    plt.savefig(out_dir+f"hist_2D_ntps_total_charge_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir+outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-def hist_2D_ntps_max_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_2D_ntps_max_charge(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     max_charge = []
     n_tps = []
     for group in groups:
@@ -288,20 +284,20 @@ def hist_2D_ntps_max_charge(groups, main_neutrino_group_per_event, ticks_limit, 
     max_n_tps = max(n_tps)
     max_n_tps_with_margin = int(max_n_tps * 1.1)
 
-    plt.hist2d(n_tps, max_charge, bins=(max_n_tps_with_margin, 100), range=((0, max_n_tps_with_margin+1), (0, max_charge_value_with_margin+1)), label="All groups")
+    plt.hist2d(n_tps, max_charge, bins=(max_n_tps_with_margin, 100), range=((0, max_n_tps_with_margin+1), (0, max_charge_value_with_margin+1)), label="All groups",cmin = 1)
     # create a text box with correlation
     textstr = f"Correlation: {corr[0][1]:.3f}"
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    plt.text(0.65, 0.9, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
+    plt.text(0.75, 0.93, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
     
     plt.xlabel("Number of TPs per group")
     plt.ylabel("Max charge per group")
-    plt.title(f"nTPs vs max charge (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"nTPs vs max charge ({outname})")
     plt.colorbar()
-    plt.savefig(out_dir+f"hist_2D_ntps_max_charge_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
 
-def hist_2D_total_lenght_total_charge(groups, main_neutrino_group_per_event, ticks_limit, channel_limit, out_dir='plots/'):
+def hist_2D_total_lenght_total_charge(groups, main_neutrino_group_per_event, outname, out_dir='plots/'):
     total_charge = []
     total_lenght = []
     for group in groups:
@@ -315,18 +311,16 @@ def hist_2D_total_lenght_total_charge(groups, main_neutrino_group_per_event, tic
     max_total_lenght = max(total_lenght)
     max_total_lenght_with_margin = int(max_total_lenght * 1.1)
 
-    plt.hist2d(total_lenght, total_charge, bins=50, range=((0, max_total_lenght_with_margin+1), (0, max_total_charge_with_margin+1)), label="All groups")
+    plt.hist2d(total_lenght, total_charge, bins=50, range=((0, max_total_lenght_with_margin+1), (0, max_total_charge_with_margin+1)), label="All groups",cmin = 1)
 
     # create a text box with correlation
     textstr = f"Correlation: {corr[0][1]:.3f}"
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-    plt.text(0.65, 0.9, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
+    plt.text(0.75, 0.93, textstr, transform=plt.gca().transAxes, fontsize=9, verticalalignment='top', bbox=props)
 
-    plt.xlabel("Total lenght per group")
+    plt.xlabel("Total length per group")
     plt.ylabel("Total charge per group")
-    plt.title(f"Total lenght vs total charge (ticks limit: {ticks_limit}, channel limit: {channel_limit})")
+    plt.title(f"Total length vs total charge ({outname})")
     plt.colorbar()
-    plt.savefig(out_dir+f"hist_2D_total_lenght_total_charge_tl_{ticks_limit}_cl_{channel_limit}.png",bbox_inches='tight', pad_inches=0.2)
+    plt.savefig(out_dir + outname, bbox_inches='tight', pad_inches=0.2)
     plt.clf()
-
-
