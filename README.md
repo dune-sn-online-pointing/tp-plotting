@@ -1,4 +1,6 @@
-# tp-plotting
+# LEGACY tp-plotting
+
+THESE FUNCTIONS AND OTHER BETTER ONES CAN BE FOUND IN https://github.com/DUNE-DAQ/tpgtools.
 
 This repo contains some simple functions to display Trigger Primitives.
 It will be moved to `dune-daq`.
